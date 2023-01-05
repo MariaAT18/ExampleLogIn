@@ -28,7 +28,7 @@ public class Test1 {
     }
 
     @Test
-    public void getStatusCode() {//givenAnIDTherelatedCrocodrileIsReturned
+    public void verifyBasicUserLogin() {//givenAnIDTherelatedCrocodrileIsReturned
         String BASE_URL = "https://test-api.k6.io";
         RequestSpecification request = RestAssured.given();
         JSONObject requestParams = new JSONObject();
