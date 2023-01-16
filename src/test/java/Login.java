@@ -8,25 +8,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Test1 {
-    @Test
-    public void getCocodrileStatusOk() {
-        int statusCode = given().when().get("https://test-api.k6.io/public/crocodiles/3/").getStatusCode();
-        System.out.println("The response status is " + statusCode);
-        assertTrue(statusCode == 200);
-    }
-
-    @Test
-    public void getResponseBody() {
-        given().when().get("https://test-api.k6.io/public/crocodiles/").then().log().body();
-    }
-
-    @Test
-    public void getCocodrileId() {
-        given().queryParam("id", "1")
-                .when().get("https://test-api.k6.io/public/crocodiles/").then().log().body();
-    }
-
+public class Login {
     @Test
     public void verifyBasicUserLogin() {
         String BASE_URL = "https://test-api.k6.io";
