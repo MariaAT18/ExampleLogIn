@@ -9,7 +9,6 @@
 package login;
 
 import common.APIManager;
-import common.ATLogger;
 import common.CommonConfig;
 import entities.User;
 import io.restassured.http.ContentType;
@@ -35,7 +34,6 @@ public class TokenLogin {
     private User user;
     private Response response;
     private String token;
-    private Logger log = ATLogger.getInstance().getLogger();
 
     /**
      * Constructor when it is neccesary to use the defined user from the CommonConfig.properties file
@@ -52,12 +50,10 @@ public class TokenLogin {
      */
     public TokenLogin(User user) {
         sendRequest(user);
-        setLoggers(user);
     }
 
     public void login() {
         sendRequest(user);
-        setLoggers(user);
     }
 
     /**
@@ -81,27 +77,7 @@ public class TokenLogin {
                 properties.load(new FileReader(filePath));
                 properties.setProperty("token", token);
                 properties.store(new FileWriter(filePath), "Token update on");
-                log.info("Updating token...");
             } catch (IOException e) {
-                log.warning("It was not possible to update the token");
-            }
-        } else {
-            log.warning("There is not a token. It was not possible to update the value");
-        }
-    }
-
-    /**
-     * Method for set the log messages according to the request response
-     * @param user that is login in the API
-     */
-    private void setLoggers(User user) {
-        if (token != null) {
-            log.info("Login successful");
-        } else {
-            if (user.getUsername() == null || user.getPassword() == null) {
-                log.warning("username and password fields are required");
-            } else {
-                log.warning(response.getBody().jsonPath().getString("detail"));
             }
         }
     }

@@ -28,13 +28,10 @@ import static io.restassured.RestAssured.given;
 public final class APIManager {
 
     private static APIManager instance;
-    private final Logger log;
 
     private APIManager() {
         CommonConfig configuration = ConfigFactory.create(CommonConfig.class);
-        log = ATLogger.getInstance().getLogger();
         baseURI = configuration.baseUrl();
-        log.info("Set baseURI to: " + baseURI);
     }
 
     /**
@@ -55,7 +52,6 @@ public final class APIManager {
      * @return response of the request
      */
     public Response getPublic(String endpoint, ContentType contentType) {
-        log.info("Send public GET for: " + endpoint);
         return given().contentType(contentType).when().get(endpoint);
     }
 
@@ -67,7 +63,6 @@ public final class APIManager {
      * @return response of the request
      */
     public Response getPublicId(String endpoint, ContentType contentType, String id) {
-        log.info("Send public GET for: " + endpoint.replace("{id}", id));
         return given().contentType(contentType).when().get(endpoint.replace("{id}", id));
     }
 
@@ -79,7 +74,6 @@ public final class APIManager {
      * @return response of the request
      */
     public Response getPrivate(String endpoint, ContentType contentType, Header header) {
-        log.info("Send private GET for: " + endpoint);
         return given().contentType(contentType).header(header).when().get(endpoint);
     }
 
@@ -92,7 +86,6 @@ public final class APIManager {
      * @return response of the request
      */
     public Response getPrivateId(String endpoint, ContentType contentType, Header header, String id) {
-        log.info("Send private GET for: " + endpoint.replace("{id}", id));
         return given().contentType(contentType).header(header).when().get(endpoint.replace("{id}", id));
     }
 
@@ -104,7 +97,6 @@ public final class APIManager {
      * @return response of the request
      */
     public Response postPublic(String endpoint, ContentType contentType, User user) {
-        log.info("Send public POST for: " + endpoint);
         return given().contentType(contentType).body(user).when().post(endpoint);
     }
 
@@ -117,7 +109,6 @@ public final class APIManager {
      * @return response of the request
      */
     public Response postPrivate(String endpoint, ContentType contentType, Header header, Crocodile crocodile) {
-        log.info("Send private POST for: " + endpoint);
         return given().contentType(contentType).header(header).body(crocodile).when().post(endpoint);
     }
 
@@ -132,7 +123,6 @@ public final class APIManager {
      */
     public Response putPrivate(String endpoint, ContentType contentType, Header header, Crocodile crocodile,
                                String id) {
-        log.info("Send private PUT for: " + endpoint.replace("{id}", id));
         return given().contentType(contentType).header(header).body(crocodile).when().put(endpoint.replace("{id}", id));
     }
 
@@ -145,7 +135,6 @@ public final class APIManager {
      * @return response of the request
      */
     public Response deletePrivate(String endpoint, ContentType contentType, Header header, String id) {
-        log.info("Send private DELETE for: " + endpoint.replace("{id}", id));
         return given().contentType(contentType).header(header).when().delete(endpoint.replace("{id}", id));
     }
 

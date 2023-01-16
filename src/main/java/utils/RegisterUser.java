@@ -9,7 +9,6 @@
 package utils;
 
 import common.APIManager;
-import common.ATLogger;
 import common.Constants;
 import entities.User;
 import io.restassured.http.ContentType;
@@ -34,7 +33,6 @@ public class RegisterUser {
     private static final int RANDOM_LIMIT = 100000;
     private Response response;
     private String propertiesPath = "src/test/resources/properties/newuser.properties";
-    private Logger log = ATLogger.getInstance().getLogger();
     private User user;
 
     /**
@@ -46,7 +44,6 @@ public class RegisterUser {
         this.user = generateDefautUser(userProperties);
         sendRequest();
         editProperties(userProperties);
-        setLoggers();
     }
 
     /**
@@ -55,7 +52,6 @@ public class RegisterUser {
     public RegisterUser(User newUser) {
         this.user = newUser;
         sendRequest();
-        setLoggers();
     }
     /**
      * Method for send the request to the API
@@ -78,7 +74,6 @@ public class RegisterUser {
                                 .lastName(userProperties.getProperty("last_name"))
                                 .email(userName + userProperties.getProperty("email"))
                                 .password(userProperties.getProperty("password")).build();
-        log.info("Creating a new user: " + userName);
         return newUser;
     }
 
@@ -124,15 +119,5 @@ public class RegisterUser {
         return user;
     }
 
-    /**
-     * Method for set the log messages according to the request response
-     */
-    private void setLoggers() {
-        if (response.statusCode() == Constants.STATUS_CREATED) {
-            log.info("Registration successful");
-        } else {
-            log.severe("Error in the registration");
-        }
-    }
 
 }

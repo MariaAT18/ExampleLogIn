@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LoginBasicErrorSteps {
+public class LoginBasicNegativeSteps {
     private String endpoint;
     private JSONObject requestParams = new JSONObject();
     private Response response;
